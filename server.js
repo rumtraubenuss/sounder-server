@@ -5,6 +5,8 @@ const multerS3 = require('multer-s3')
 const Slack = require('slack-node');
 const bodyParser = require('body-parser');
 
+const db = require('./database');
+
 const {
   SLACK_API_TOKEN,
   S3_SECRET_ACCESS_KEY,
@@ -37,10 +39,12 @@ const upload = multer({
 })
 
 const port = process.env.PORT || 4000;
-const app = express()
+const app = express();
+
 app.use(bodyParser.raw({ type: 'text/plain' }));
+
 app.post('/upload', upload.single('file'), function(req, res, next) {
-  console.log(req.body);
+  db.add(req.body);
   res.send('Successfully uploaded file!')
   slack.api('chat.postMessage', {
     text:'Uploaded file.',
