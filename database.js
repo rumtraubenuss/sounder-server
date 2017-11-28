@@ -20,7 +20,7 @@ exports.add = (sound) => {
       if(err) {
         return reject(err);
       } else {
-        console.log('Saved to db');
+        console.log('Saved to db', sound);
         return resolve();
       }
     });

@@ -33,7 +33,9 @@ const upload = multer({
       cb(null, {fieldName: file.fieldname});
     },
     key: function (req, file, cb) {
-      cb(null, Date.now().toString())
+      const key = `sound_${Date.now().toString()}`;
+      db.add({ key, ...req.body });
+      cb(null, key)
     }
   })
 })
@@ -44,7 +46,6 @@ const app = express();
 app.use(bodyParser.raw({ type: 'text/plain' }));
 
 app.post('/upload', upload.single('file'), function(req, res, next) {
-  db.add(req.body);
   res.send('Successfully uploaded file!')
   slack.api('chat.postMessage', {
     text:'Uploaded file.',
