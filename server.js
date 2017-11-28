@@ -33,9 +33,10 @@ const upload = multer({
       cb(null, {fieldName: file.fieldname});
     },
     key: function (req, file, cb) {
-      const key = `sound_${Date.now().toString()}`;
-      db.add({ key, ...req.body });
-      cb(null, key)
+      db.add(req.body).then(res => {
+        const key = String(res.insertedIds[0]);
+        cb(null, key)
+      });
     }
   })
 })

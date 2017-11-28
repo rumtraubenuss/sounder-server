@@ -21,7 +21,7 @@ exports.add = (sound) => {
         return reject(err);
       } else {
         console.log('Saved to db', sound);
-        return resolve();
+        return resolve(res);
       }
     });
   });
