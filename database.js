@@ -25,4 +25,7 @@ exports.add = (sound) => {
       }
     });
   });
-}
+};
+
+const projection = ['latitude', 'longitude'];
+exports.get = () => db.collection('sounds').find({}, projection).toArray();

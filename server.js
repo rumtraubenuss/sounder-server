@@ -35,7 +35,7 @@ const upload = multer({
     key: function (req, file, cb) {
       db.add(req.body).then(res => {
         const key = String(res.insertedIds[0]);
-        cb(null, key)
+        cb(null, key);
       });
     }
   })
@@ -55,6 +55,8 @@ app.post('/upload', upload.single('file'), function(req, res, next) {
     console.log(response);
   });
 })
+
+app.get('/sounds', async (req, res) => res.json(await db.get()));
 
 app.listen(port)
 
