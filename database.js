@@ -27,5 +27,5 @@ exports.add = (sound) => {
   });
 };
 
-const projection = ['latitude', 'longitude'];
+const projection = ['latitude', 'longitude', 'did'];
 exports.get = () => db.collection('sounds').find({}, projection).toArray();
